@@ -17,6 +17,7 @@ spec:
         remediation:
             retries: 3
     values:
+        ingressClassByName: true
         admissionWebhook:
             nodeSelector:
                 kubernetes.io/os: linux
@@ -30,7 +31,7 @@ spec:
                 default-ssl-certificate: ingress-nginx/wildcard-certificate
             ingressClassResource:
                 name: nginx
-                default: true
+                default: false
                 controllerValue: "k8s.io/ingress-nginx-internal"
             nodeSelector:
                 kubernetes.io/os: linux

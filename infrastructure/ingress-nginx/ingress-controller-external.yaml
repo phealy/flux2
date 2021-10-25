@@ -21,9 +21,10 @@ spec:
             nodeSelector:
                 kubernetes.io/os: linux
         controller:
+            ingressClassByName: true
             ingressClassResource:
                 name: nginx-external
-                default: true
+                default: false
                 controllerValue: "k8s.io/ingress-nginx-external"
             config:
                 client-body-buffer-size: 16k

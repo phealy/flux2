@@ -1,0 +1,100 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    labels:
+        app: pihole
+    name: pihole
+    namespace: pihole
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: pihole
+    serviceName: pihole
+    template:
+        metadata:
+            labels:
+                app: pihole
+        spec:
+            affinity:
+                podAntiAffinity:
+                    preferredDuringSchedulingIgnoredDuringExecution:
+                        - weight: 100
+                          podAffinityTerm:
+                              labelSelector:
+                                  matchExpressions:
+                                      - key: app
+                                        operator: In
+                                        values:
+                                            - pihole
+                              topologyKey: kubernetes.io/hostname
+            containers:
+                - env:
+                      - name: DNS1
+                        value: 127.0.0.1#5353
+                      - name: DNS2
+                        value: 127.0.0.1#5353
+                      - name: TZ
+                        value: America/Chicago
+                      - name: WEBPASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                key: WEBPASSWORD
+                                name: pihole-admin
+                      - name: WEBTHEME
+                        value: default-dark
+                      - name: INSTALL_WEB_SERVER
+                        value: "false"
+                  image: pihole/pihole:latest
+                  imagePullPolicy: Always
+                  name: pihole
+                  ports:
+                      - containerPort: 53
+                        protocol: TCP
+                      - containerPort: 53
+                        protocol: UDP
+                      - containerPort: 80
+                        protocol: TCP
+                      - containerPort: 443
+                        protocol: TCP
+                  volumeMounts:
+                      - mountPath: /etc/pihole
+                        name: pihole
+                        subPath: etc
+                      - mountPath: /etc/dnsmasq.d
+                        name: pihole
+                        subPath: dnsmasq.d
+                      - mountPath: /etc/dnsmasq.d/099-phealy.conf
+                        name: pihole-dnsmasq
+                        subPath: 099-phealy.conf
+                - image: coredns/coredns:latest
+                  imagePullPolicy: Always
+                  name: coredns
+                  resources: {}
+                  terminationMessagePath: /dev/termination-log
+                  terminationMessagePolicy: File
+                  volumeMounts:
+                      - mountPath: /Corefile
+                        name: coredns
+                        subPath: Corefile
+            volumes:
+                - configMap:
+                      defaultMode: 420
+                      name: coredns
+                  name: coredns
+                - configMap:
+                      defaultMode: 420
+                      name: pihole-dnsmasq
+                  name: pihole-dnsmasq
+    volumeClaimTemplates:
+        - metadata:
+              name: pihole
+          spec:
+              accessModes:
+                  - ReadWriteOnce
+              resources:
+                  requests:
+                      storage: 1Gi
+              storageClassName: files
+

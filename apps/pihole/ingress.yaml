@@ -1,0 +1,69 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: pihole
+    annotations:
+        nginx.ingress.kubernetes.io/affinity: cookie
+spec:
+    ingressClassName: nginx
+    rules:
+        - host: pihole
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: pihole-web
+                            port:
+                                number: 80
+    tls:
+        - hosts:
+              - pihole
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: pihole-0
+    annotations:
+        nginx.ingress.kubernetes.io/affinity: cookie
+spec:
+    ingressClassName: nginx
+    rules:
+        - host: pihole
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: pihole-web-0
+                            port:
+                                number: 80
+    tls:
+        - hosts:
+              - pihole-0
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: pihole-1
+    annotations:
+        nginx.ingress.kubernetes.io/affinity: cookie
+spec:
+    ingressClassName: nginx
+    rules:
+        - host: pihole
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: pihole-web-1
+                            port:
+                                number: 80
+    tls:
+        - hosts:
+              - pihole-1

@@ -28,9 +28,10 @@ spec:
                 ssl-protocols: "TLSv1.2"
             extraArgs:
                 default-ssl-certificate: ingress-nginx/wildcard-certificate
-            ingressClass: nginx
             ingressClassResource:
                 name: nginx
+                default: true
+                controllerValue: "k8s.io/ingress-nginx-internal"
             nodeSelector:
                 kubernetes.io/os: linux
             replicaCount: 3

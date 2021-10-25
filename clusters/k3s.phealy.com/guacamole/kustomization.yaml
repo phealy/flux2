@@ -28,16 +28,16 @@ patches:
     - patch: |-
         - op: replace
           path: /spec/rules/0/host
-          value: rdp.k3s.phealy.com
+          value: rdp.int.k3s.phealy.com
         - op: replace
           path: /spec/rules/1/host
-          value: ssh.k3s.phealy.com
+          value: ssh.int.k3s.phealy.com
         - op: replace
           path: /spec/tls/0/hosts/0
-          value: rdp.k3s.phealy.com
+          value: rdp.int.k3s.phealy.com
         - op: replace
           path: /spec/tls/0/hosts/1
-          value: ssh.k3s.phealy.com
+          value: ssh.int.k3s.phealy.com
       target:
           group: networking.k8s.io
           version: v1

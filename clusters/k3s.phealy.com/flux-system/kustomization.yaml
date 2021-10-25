@@ -8,6 +8,7 @@ resources:
 - resources/cert-manager.yaml
 - resources/ingress-nginx.yaml
 - resources/metallb.yaml
+- resources/storage-classes.yaml
 - resources/guacamole.yaml
 - resources/home-assistant.yaml
 - resources/pihole.yaml

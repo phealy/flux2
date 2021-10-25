@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: Us8L3JsZamlf9aGVbVnSdjybSuwQsQOi
+  name: unifi
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: speedtest
+    nodePort: 32718
+    port: 6789
+    protocol: TCP
+    targetPort: 6789
+  - name: http
+    nodePort: 31003
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    nodePort: 31729
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
+  - name: httpportal
+    nodePort: 31322
+    port: 8880
+    protocol: TCP
+    targetPort: 8880
+  - name: httpsportal
+    nodePort: 31290
+    port: 8843
+    protocol: TCP
+    targetPort: 8843
+  selector:
+    app: unifi
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: Us8L3JsZamlf9aGVbVnSdjybSuwQsQOi
+  name: unifi-udp
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: l2discover
+    nodePort: 32297
+    port: 1900
+    protocol: UDP
+    targetPort: 1900
+  - name: stun
+    nodePort: 31297
+    port: 3478
+    protocol: UDP
+    targetPort: 3478
+  - name: syslog
+    nodePort: 30117
+    port: 5514
+    protocol: UDP
+    targetPort: 5514
+  - name: discovery
+    nodePort: 30469
+    port: 10001
+    protocol: UDP
+    targetPort: 10001
+  selector:
+    app: unifi
+  type: LoadBalancer

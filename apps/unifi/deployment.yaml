@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: unifi
+  name: unifi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unifi
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: unifi
+    spec:
+      containers:
+      - env:
+        - name: PUID
+          value: "1001"
+        - name: PGID
+          value: "1001"
+        image: linuxserver/unifi-controller:latest
+        imagePullPolicy: Always
+        name: unifi
+        ports:
+        - containerPort: 53
+          protocol: TCP
+        - containerPort: 80
+          protocol: TCP
+        - containerPort: 443
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /config
+          name: unifi
+      - image: busybox
+        imagePullPolicy: Always
+        name: unifi-log
+        command:
+            - /bin/sh
+            - -c
+            - "/bin/tail -F /config/logs/server.log"
+        volumeMounts:
+        - mountPath: /config
+          name: unifi
+      - image: busybox
+        imagePullPolicy: Always
+        name: mongod-log
+        command:
+            - /bin/sh
+            - -c
+            - "/bin/tail -F /config/logs/mongod.log"
+        volumeMounts:
+        - mountPath: /config
+          name: unifi
+      securityContext:
+          fsGroup: 1001
+      volumes:
+      - name: unifi
+        persistentVolumeClaim:
+          claimName: unifi

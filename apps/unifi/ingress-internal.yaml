@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: unifi-internal
+    annotations:
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+    ingressClassName: nginx
+    rules:
+        - host: unifi
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: unifi
+                            port:
+                                number: 8443
+    tls:
+        - hosts:
+              - unifi

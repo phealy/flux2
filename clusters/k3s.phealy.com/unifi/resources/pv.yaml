@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc-a64a3da1-07e8-4bc3-8af5-6a4ade8d4802
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: unifi
+    namespace: unifi
+  nfs:
+    path: /volume1/k3s.phealy.com/unifi-unifi-pvc-a64a3da1-07e8-4bc3-8af5-6a4ade8d4802
+    server: 10.0.23.2
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: files
+  volumeMode: Filesystem

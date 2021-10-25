@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: pihole-admin
+    namespace: pihole
+type: Opaque
+data:
+    WEBPASSWORD: ENC[AES256_GCM,data:YbDpxpG9c8kfnnjWIGKwVzDzfOZOJJ+U37SbJA==,iv:2Qp2cEMvyj4u3oGa1IlgerOEmjbgeR4tpRZOm8xNhk8=,tag:eyzJ+AtWVNA1RI++iEOI9w==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    lastmodified: '2021-01-28T08:16:08Z'
+    mac: ENC[AES256_GCM,data:cky61CF91YY3TzK0u7Ly4UTFYXmzTkYbxyatsPl31sogSGZQ61bllJhwkhczf54v2HgiMWvyWwTkmtiU8i/3Trd3zbn9jz7iRrM5xBi/iakjwx9OPp7zKRClYE7hMmcZEz8+wnHccVRC5JYbt3k/ZjKG/BqmdoM+M5rLPXYvrM8=,iv:HXuO7ZTSTO3KiWiOLDqI3nEp2YNnczFTDzu78wzFRKs=,tag:h7j+8d4HPr8++AvEKiJ+ig==,type:str]
+    pgp:
+        - created_at: '2021-01-28T08:16:07Z'
+          enc: |
+              -----BEGIN PGP MESSAGE-----
+
+              hQIMA3JvjRecrhePAQ//RkZKWu7t786OoEa5JskvBaAGy4iek036mziUHuyz7ysH
+              PJUubsTNvnKumm9llSxGkiZltw746svhTtDCI/WgWisepiBZpmz6BKX4HwUPKIzf
+              3HGcjqUPRGoONn0xok3b8LTmwDXx4/vGklMiI3VLKd2zj+ffVlyCmboUQgT5gtAA
+              0wSH294Xbyn0SRuCgHpXQ0o49GPR/NbqmL9CsvV9kwT/6YBCfTB5+J3EsHKbZ3Oe
+              SQi5EwJrUZk3G1cnZhFSwEA5+3EjjKbfzjWDbYaMRKHTfK9Xvuy3DVj2JwqwiuES
+              lgdgBSRIpHbKli3mMZmxK8wZsd+568KdhTmF5YBjJLsAjdCIZBU1GJ41AMphKQJ+
+              /qf004Uzd7nWgKdvrjjPKjlBxU18cMwxBHyyiiIvzF7xDt+Ahf3ds5yAQpoEg/KT
+              bmr36yjnRP937tuw0HfvAxByl9FHUjZ4Zcq4xPBoGyP1n5y/k+uDoWJRFaF9uUwt
+              l+/a6irAVlXO++OeSfBFMluBIMqe6e3Ifk3W0BwUZzViWed7m+u2COldiniwTj1H
+              VGLEgSbt3P8pw5rI+Eu+lTkhqN4pJ8bLfXKGJqkXrRPC/PAH+c30MGp4JXrCfu2v
+              SvZwhv7cfVqCPr5cAt9b9C/xFJfWOlD8cPh15n8gyMGtGoLPNvTpzLN4Zr50cDnS
+              XgFNal+sp5Ul4UI3WIIxHA/0miMW6C6kD87KcBOnUb6LxYBSN4IWKL8o3DH6Upss
+              xcliFqCMgujcsQl+2wX2IzF6bdijVs116u5LbNjPDrqTwcD5jajKO3Ft5rH5/oc=
+              =U703
+              -----END PGP MESSAGE-----
+          fp: A159111F770337DC337AD38A574C7A3BA03CC798
+    encrypted_regex: ^(data|stringData)$
+    version: 3.6.1

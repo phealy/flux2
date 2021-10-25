@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: unifi
+bases:
+    - ../../../apps/unifi
+resources:
+    - resources/pv.yaml
+patches:
+    - patch: |-
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: unifi
+        spec:
+          volumeMode: Filesystem
+          volumeName: pvc-a64a3da1-07e8-4bc3-8af5-6a4ade8d4802
+    - patch: |-
+        - op: replace
+          path: /spec/rules/0/host
+          value: unifi.k3s.phealy.com
+        - op: replace
+          path: /spec/tls/0/hosts/0
+          value: unifi.k3s.phealy.com
+      target:
+          group: networking.k8s.io
+          version: v1
+          kind: Ingress
+          name: unifi-internal

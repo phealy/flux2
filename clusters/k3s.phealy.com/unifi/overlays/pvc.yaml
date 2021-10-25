@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: unifi
+spec:
+  volumeMode: Filesystem
+  volumeName: pvc-a64a3da1-07e8-4bc3-8af5-6a4ade8d4802

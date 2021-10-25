@@ -2,17 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 bases:
-    - ../../../infrastructure/ingress-nginx
+    - ../../../infrastructure/ingress-nginx-internal
 patches:
-    - patch: |-
-        apiVersion: helm.toolkit.fluxcd.io/v2beta1
-        kind: HelmRelease
-        metadata:
-            name: ingress-controller-external
-        spec:
-            values:
-                controller:
-                    loadBalancerIP: 10.0.21.1
     - patch: |-
         apiVersion: helm.toolkit.fluxcd.io/v2beta1
         kind: HelmRelease
@@ -27,7 +18,7 @@ patches:
         kind: Certificate
         metadata:
             name: wildcard-certificate
-            namespace: ingress-nginx
+            namespace: ingress-nginx-internal
         spec:
             subject:
                 organizations:

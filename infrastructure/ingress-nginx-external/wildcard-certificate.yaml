@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
     name: wildcard-certificate
-    namespace: ingress-nginx
+    namespace: ingress-nginx-external
 spec:
     secretName: wildcard-certificate
     duration: 2160h      # 90d

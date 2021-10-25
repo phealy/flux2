@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guacamole
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: guacamole
+        tier: frontend
+    spec:
+      containers:
+      - name: guacamole-app
+        image: guacamole/guacamole
+        imagePullPolicy: Always
+        env:
+        - name: GUACD_HOSTNAME
+          value: "guacamole-daemon"
+        - name: GUACD_PORT
+          value: "4822"
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: POSTGRES_HOSTNAME
+          value: "guacamole-db"
+        - name: POSTGRES_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: database
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: user_login
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: user_password
+        - name: TOTP_ENABLED
+          value: "true"
+        - name: TOTP_ISSUER
+          value: phealy.com guacamole
+        - name: TOTP_MODE
+          value: sha1
+        ports:
+        - name: guacamole-app
+          containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        volumeMounts:
+          - name: server-xml
+            mountPath: /usr/local/tomcat/conf/server.xml
+            subPath: server.xml
+      volumes:
+      - name: server-xml
+        configMap:
+          name: guacamole-server

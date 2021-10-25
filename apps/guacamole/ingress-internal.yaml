@@ -1,0 +1,34 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: guacamole-internal
+    annotations:
+      nginx.ingress.kubernetes.io/app-root: "/guacamole/"
+spec:
+    ingressClassName: nginx
+    rules:
+        - host: rdp
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: guacamole
+                            port:
+                                number: 8080
+        - host: ssh
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: guacamole
+                            port:
+                                number: 8080
+    tls:
+        - hosts:
+              - rdp
+              - ssh

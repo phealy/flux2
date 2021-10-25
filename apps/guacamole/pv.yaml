@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc-817d35a1-3a1c-4145-b6db-38daf3a62172
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: guacamole-db
+    namespace: guacamole
+  nfs:
+    path: /volume1/k3s.phealy.com/guacamole-guacamole-db-pvc-817d35a1-3a1c-4145-b6db-38daf3a62172
+    server: 10.0.23.2
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: files
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc-2f770203-bbca-444e-91cd-38168319fa35
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 5Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: guacamole-fonts
+    namespace: guacamole
+  nfs:
+    path: /volume1/k3s.phealy.com/guacamole-guacamole-fonts-pvc-2f770203-bbca-444e-91cd-38168319fa35
+    server: 10.0.23.2
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: files
+  volumeMode: Filesystem

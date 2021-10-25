@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: guacamole-daemon
+    namespace: guacamole
+spec:
+    ports:
+        - name: guacd
+          port: 4822
+          protocol: TCP
+          targetPort: 4822
+    selector:
+        run: guacamole-daemon
+    type: ClusterIP

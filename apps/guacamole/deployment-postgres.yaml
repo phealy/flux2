@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole-db
+  namespace: netboot-guacamole
+  labels:
+    app: guacamole-db
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: guacamole-db
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: guacamole-db
+        tier: backend
+    spec:
+      containers:
+      - image: postgres:12.5
+        name: guacamole-db
+        env:
+        - name: PGDATA
+          value: /pgdata/data
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: user_login
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: user_password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: database
+        ports:
+        - name: guacamole-db
+          containerPort: 5432
+        volumeMounts:
+        - name: postgres-persistent-storage
+          mountPath: "/pgdata"
+      volumes:
+      - name: postgres-persistent-storage
+        persistentVolumeClaim:  
+          claimName: guacamole-db

@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: guacamole-db
+  namespace: guacamole
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: files
+  volumeMode: Filesystem
+  volumeName: pvc-817d35a1-3a1c-4145-b6db-38daf3a62172
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: guacamole-fonts
+  namespace: guacamole
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: files
+  volumeMode: Filesystem
+  volumeName: pvc-2f770203-bbca-444e-91cd-38168319fa35

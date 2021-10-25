@@ -13,3 +13,4 @@ resources:
 - resources/home-assistant.yaml
 - resources/pihole.yaml
 - resources/unifi.yaml
+- resources/guacamole.yaml

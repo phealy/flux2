@@ -1,0 +1,48 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+    name: ingress-controller-external
+spec:
+    releaseName: external
+    chart:
+        spec:
+            chart: ingress-nginx
+            sourceRef:
+                name: ingress-nginx
+                kind: HelmRepository
+            version: '>=1.0.0'
+    interval: 1h0m0s
+    install:
+        remediation:
+            retries: 3
+    values:
+        admissionWebhook:
+            nodeSelector:
+                kubernetes.io/os: linux
+        controller:
+            ingressClass: nginx-external
+            config:
+                client-body-buffer-size: 16k
+                large-client-header-buffers: 4 16k
+                proxy-buffer-size: 16k
+                ssl-protocols: "TLSv1.2"
+            extraArgs:
+                default-ssl-certificate: ingress-nginx/wildcard-certificate
+            nodeSelector:
+                kubernetes.io/os: linux
+            replicaCount: 3
+            service:
+                type: LoadBalancer
+                externalTrafficPolicy: Local
+        defaultBackend:
+            enabled: true
+            nodeSelector:
+                kubernetes.io/os: linux
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+    name: nginx-external
+spec:
+    controller: k8s.io/ingress-nginx

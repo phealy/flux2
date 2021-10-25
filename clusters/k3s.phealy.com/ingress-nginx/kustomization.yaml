@@ -1,0 +1,42 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+    - ../../../infrastructure/ingress-nginx
+patches:
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2beta1
+        kind: HelmRelease
+        metadata:
+            name: ingress-controller-external
+        spec:
+            values:
+                controller:
+                    loadBalancerIP: 10.0.21.1
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2beta1
+        kind: HelmRelease
+        metadata:
+            name: ingress-controller-internal
+        spec:
+            values:
+                controller:
+                    loadBalancerIP: 10.0.21.0
+    - patch: |-
+        apiVersion: cert-manager.io/v1
+        kind: Certificate
+        metadata:
+            name: wildcard-certificate
+            namespace: ingress-nginx
+        spec:
+            subject:
+                organizations:
+                    - phealy.com
+            commonName: k3s.phealy.com
+            dnsNames:
+                - k3s.phealy.com
+                - '*.k3s.phealy.com'
+            issuerRef:
+                name: letsencrypt-prod
+                kind: ClusterIssuer
+                group: cert-manager.io

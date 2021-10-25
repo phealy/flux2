@@ -4,3 +4,7 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 - resources/nfs-subdir-external-provisioner.yaml
+- resources/cert-manager-crds.yaml
+- resources/cert-manager.yaml
+- resources/ingress-nginx.yaml
+- resources/metallb.yaml

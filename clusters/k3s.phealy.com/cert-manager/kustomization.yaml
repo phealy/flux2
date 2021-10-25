@@ -1,0 +1,38 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+    - ../../../infrastructure/cert-manager
+resources:
+    - resources/cloudflare-api-token-secret.yaml
+patches:
+    - patch: |-
+        apiVersion: cert-manager.io/v1
+        kind: ClusterIssuer
+        metadata:
+            name: letsencrypt-prod
+        spec:
+            acme:
+                email: phealy@phealy.com
+                solvers:
+                    - dns01:
+                          cloudflare:
+                              email: phealy@phealy.com
+                              apiTokenSecretRef:
+                                  name: cloudflare-api-token-secret
+                                  key: api-token
+    - patch: |-
+        apiVersion: cert-manager.io/v1
+        kind: ClusterIssuer
+        metadata:
+            name: letsencrypt-staging
+        spec:
+            acme:
+                email: phealy@phealy.com
+                solvers:
+                    - dns01:
+                          cloudflare:
+                              email: phealy@phealy.com
+                              apiTokenSecretRef:
+                                  name: cloudflare-api-token-secret
+                                  key: api-token

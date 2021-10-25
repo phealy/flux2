@@ -28,6 +28,7 @@ spec:
                 ssl-protocols: "TLSv1.2"
             extraArgs:
                 default-ssl-certificate: ingress-nginx/wildcard-certificate
+            ingressClass: nginx
             ingressClassResource:
                 name: nginx
             nodeSelector:

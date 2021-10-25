@@ -21,6 +21,7 @@ spec:
             nodeSelector:
                 kubernetes.io/os: linux
         controller:
+            ingressClass: nginx-external
             ingressClassResource:
                 name: nginx-external
             config:

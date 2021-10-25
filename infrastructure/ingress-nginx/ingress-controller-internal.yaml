@@ -21,7 +21,6 @@ spec:
             nodeSelector:
                 kubernetes.io/os: linux
         controller:
-            class: nginx
             config:
                 client-body-buffer-size: 16k
                 large-client-header-buffers: 4 16k
@@ -29,6 +28,8 @@ spec:
                 ssl-protocols: "TLSv1.2"
             extraArgs:
                 default-ssl-certificate: ingress-nginx/wildcard-certificate
+            ingressClassResource:
+                name: nginx
             nodeSelector:
                 kubernetes.io/os: linux
             replicaCount: 3
@@ -39,12 +40,3 @@ spec:
             enabled: true
             nodeSelector:
                 kubernetes.io/os: linux
----
-apiVersion: networking.k8s.io/v1
-kind: IngressClass
-metadata:
-    name: nginx
-    annotations:
-        ingressclass.kubernetes.io/is-default-class: 'true'
-spec:
-    controller: k8s.io/ingress-nginx

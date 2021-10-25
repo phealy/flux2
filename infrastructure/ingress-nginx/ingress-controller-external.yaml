@@ -21,7 +21,8 @@ spec:
             nodeSelector:
                 kubernetes.io/os: linux
         controller:
-            ingressClass: nginx-external
+            ingressClassResource:
+                name: nginx-external
             config:
                 client-body-buffer-size: 16k
                 large-client-header-buffers: 4 16k
@@ -39,10 +40,3 @@ spec:
             enabled: true
             nodeSelector:
                 kubernetes.io/os: linux
----
-apiVersion: networking.k8s.io/v1
-kind: IngressClass
-metadata:
-    name: nginx-external
-spec:
-    controller: k8s.io/ingress-nginx

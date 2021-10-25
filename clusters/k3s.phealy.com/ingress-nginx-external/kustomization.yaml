@@ -27,6 +27,8 @@ patches:
             dnsNames:
                 - k3s.phealy.com
                 - '*.k3s.phealy.com'
+                - 'ext.k3s.phealy.com'
+                - '*.ext.k3s.phealy.com'
             issuerRef:
                 name: letsencrypt-prod
                 kind: ClusterIssuer

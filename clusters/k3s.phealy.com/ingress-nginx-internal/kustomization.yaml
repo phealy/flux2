@@ -27,7 +27,6 @@ patches:
             dnsNames:
                 - k3s.phealy.com
                 - '*.k3s.phealy.com'
-                - 'int.k3s.phealy.com'
                 - '*.int.k3s.phealy.com'
             issuerRef:
                 name: letsencrypt-prod

@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: home-assistant-internal
+spec:
+    ingressClassName: nginx
+    rules:
+        - host: home-assistant
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: cluster-home-assistant
+                            port:
+                                number: 8123
+    tls:
+        - hosts:
+              - home-assistant

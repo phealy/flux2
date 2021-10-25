@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+    name: home-assistant
+    namespace: home-assistant
+spec:
+    url: https://k8s-at-home.com/charts/
+    interval: 10m

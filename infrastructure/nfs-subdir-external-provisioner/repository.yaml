@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+    name: nfs-subdir-external-provisioner
+    namespace: nfs-system
+spec:
+    interval: 5m
+    url: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner

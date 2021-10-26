@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: files
+  volumeMode: Filesystem
+  volumeName: pvc-61df8543-5f7c-4257-ad5b-d7f51d4d3b0f

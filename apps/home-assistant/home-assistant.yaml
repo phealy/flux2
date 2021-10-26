@@ -18,6 +18,8 @@ spec:
         remediation:
             retries: 3
     values:
+      controller:
+        replicas: 0
       dnsConfig:
         options:
           - name: ndots
@@ -31,7 +33,4 @@ spec:
       persistence:
         config:
           enabled: true
-          storageClass: files
-          accessMode: ReadWriteOnce
-          size: 1Gi
-          skipuninstall: true
+          existingClaim: home-assistant

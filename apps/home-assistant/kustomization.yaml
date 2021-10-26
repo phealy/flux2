@@ -8,3 +8,5 @@ resources:
     - home-assistant.yaml
     - ingress-internal.yaml
     - ingress-external.yaml
+    - pv.yaml
+    - pvc.yaml

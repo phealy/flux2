@@ -12,7 +12,8 @@ patches:
         spec:
             values:
                 controller:
-                    loadBalancerIP: 10.0.21.0
+                    service:
+                        loadBalancerIP: 10.0.21.0
     - patch: |-
         apiVersion: cert-manager.io/v1
         kind: Certificate

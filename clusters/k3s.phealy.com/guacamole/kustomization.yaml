@@ -5,8 +5,27 @@ namespace: guacamole
 bases:
     - ../../../apps/guacamole
 resources:
+    - resources/pv.yaml
     - resources/secret.yaml
 patches:
+    - patch: |-
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: guacamole-db
+          namespace: guacamole
+        spec:
+          volumeMode: Filesystem
+          volumeName: pvc-817d35a1-3a1c-4145-b6db-38daf3a62172
+    - patch: |-
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: guacamole-fonts
+          namespace: guacamole
+        spec:
+          volumeMode: Filesystem
+          volumeName: pvc-2f770203-bbca-444e-91cd-38168319fa35
     - patch: |-
         - op: replace
           path: /spec/rules/0/host
@@ -25,6 +44,7 @@ patches:
           version: v1
           kind: Ingress
           name: guacamole-external
+          namespace: guacamole
     - patch: |-
         - op: replace
           path: /spec/rules/0/host
@@ -43,3 +63,4 @@ patches:
           version: v1
           kind: Ingress
           name: guacamole-internal
+          namespace: guacamole

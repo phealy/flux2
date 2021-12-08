@@ -17,16 +17,14 @@ spec:
         remediation:
             retries: 3
     values:
-        admissionWebhooks:
-            nodeSelector:
-                kubernetes.io/os: linux
-            objectSelector:
-                matchExpressions:
-                  - key: ingress-class
-                    operator: NotIn
-                    values:
-                    - nginx-external
         controller:
+            admissionWebhooks:
+                objectSelector:
+                    matchExpressions:
+                      - key: ingress-class
+                        operator: NotIn
+                        values:
+                        - nginx-external
             config:
                 client-body-buffer-size: 16k
                 large-client-header-buffers: 4 16k

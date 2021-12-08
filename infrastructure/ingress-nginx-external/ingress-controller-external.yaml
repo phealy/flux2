@@ -17,10 +17,14 @@ spec:
         remediation:
             retries: 3
     values:
-        admissionWebhook:
-            nodeSelector:
-                kubernetes.io/os: linux
         controller:
+            admissionWebhooks:
+                objectSelector:
+                    matchExpressions:
+                      - key: ingress-class
+                        operator: NotIn
+                        values:
+                        - nginx-external
             ingressClassByName: false
             ingressClassResource:
                 name: nginx-external

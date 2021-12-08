@@ -20,6 +20,12 @@ spec:
         admissionWebhook:
             nodeSelector:
                 kubernetes.io/os: linux
+            objectSelector:
+                matchExpressions:
+                  - key: ingress-class
+                    operator: NotIn
+                    values:
+                    - nginx-external
         controller:
             config:
                 client-body-buffer-size: 16k

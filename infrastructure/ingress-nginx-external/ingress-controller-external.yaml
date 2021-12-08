@@ -22,7 +22,7 @@ spec:
                 objectSelector:
                     matchExpressions:
                       - key: ingress-class
-                        operator: NotIn
+                        operator: In
                         values:
                         - nginx-external
             ingressClassByName: false

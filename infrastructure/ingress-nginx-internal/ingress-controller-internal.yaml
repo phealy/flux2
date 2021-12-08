@@ -17,7 +17,7 @@ spec:
         remediation:
             retries: 3
     values:
-        admissionWebhook:
+        admissionWebhooks:
             nodeSelector:
                 kubernetes.io/os: linux
             objectSelector:

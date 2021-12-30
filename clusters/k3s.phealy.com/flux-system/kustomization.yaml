@@ -3,12 +3,12 @@ kind: Kustomization
 resources:
 - gotk-components.yaml
 - gotk-sync.yaml
+- resources/kube-vip.yaml
 - resources/nfs-subdir-external-provisioner.yaml
 - resources/cert-manager-crds.yaml
 - resources/cert-manager.yaml
 - resources/ingress-nginx-external.yaml
 - resources/ingress-nginx-internal.yaml
-- resources/metallb.yaml
 - resources/storage-classes.yaml
 - resources/home-assistant.yaml
 - resources/pihole.yaml

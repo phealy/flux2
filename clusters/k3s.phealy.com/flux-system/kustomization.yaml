@@ -11,6 +11,7 @@ resources:
 - resources/metallb.yaml
 - resources/storage-classes.yaml
 - resources/home-assistant.yaml
+- resources/mosquitto.yaml
 - resources/pihole.yaml
 - resources/unifi.yaml
 - resources/guacamole.yaml

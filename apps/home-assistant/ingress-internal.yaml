@@ -3,6 +3,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
     name: home-assistant-internal
+    annotations:
+      nginx.org/websocket-services: home-assistant
 spec:
     ingressClassName: nginx
     rules:

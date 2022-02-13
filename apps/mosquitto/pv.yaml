@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: cluster.local/nfs-subdir-external-provisioner
+  name: pvc-e28560a1-6087-4452-98e1-85f2a3e6c969
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: mosquitto-data
+    namespace: mosquitto
+    uid: e28560a1-6087-4452-98e1-85f2a3e6c969
+  nfs:
+    path: /volume1/k3s.phealy.com/mosquitto-mosquitto-data-pvc-e28560a1-6087-4452-98e1-85f2a3e6c969
+    server: 10.0.23.2
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: files
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: cluster.local/nfs-subdir-external-provisioner
+  name: pvc-75e793f2-d3c0-4d1f-b483-cf53bbb3383d
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: mosquitto-configinc
+    namespace: mosquitto
+    uid: 75e793f2-d3c0-4d1f-b483-cf53bbb3383d
+  nfs:
+    path: /volume1/k3s.phealy.com/mosquitto-mosquitto-configinc-pvc-75e793f2-d3c0-4d1f-b483-cf53bbb3383d
+    server: 10.0.23.2
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: files
+  volumeMode: Filesystem

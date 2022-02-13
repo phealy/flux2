@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mosquitto-data
+  namespace: mosquitto
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: files
+  volumeMode: Filesystem
+  volumeName: pvc-e28560a1-6087-4452-98e1-85f2a3e6c969
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mosquitto-configinc
+  namespace: mosquitto
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: files
+  volumeMode: Filesystem
+  volumeName: pvc-75e793f2-d3c0-4d1f-b483-cf53bbb3383d

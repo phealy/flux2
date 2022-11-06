@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: cluster.local/nfs-subdir-external-provisioner
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: pvc-600ad5f6-242a-4de9-a62a-9d998d1cfaec
+  uid: ee2611cb-4b76-4fac-a1cc-f7ae9952dfd1
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: nodejs-poolcontroller
+    namespace: nodejs-poolcontroller
+    resourceVersion: "211881716"
+    uid: 600ad5f6-242a-4de9-a62a-9d998d1cfaec
+  nfs:
+    path: /volume1/k3s.phealy.com/nodejs-poolcontroller-nodejs-poolcontroller-pvc-600ad5f6-242a-4de9-a62a-9d998d1cfaec
+    server: 10.0.23.2
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: files
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: cluster.local/nfs-subdir-external-provisioner
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: pvc-d3033139-b95a-4d75-861d-5aef287d9388
+  uid: 43a1f25f-8c94-4b64-b6ca-0491a0f4367b
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: nodejs-poolcontroller-backups
+    namespace: nodejs-poolcontroller
+    uid: d3033139-b95a-4d75-861d-5aef287d9388
+  nfs:
+    path: /volume1/k3s.phealy.com/nodejs-poolcontroller-nodejs-poolcontroller-backups-pvc-d3033139-b95a-4d75-861d-5aef287d9388
+    server: 10.0.23.2
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: files
+  volumeMode: Filesystem

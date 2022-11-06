@@ -1,0 +1,93 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-poolcontroller
+  name: nodejs-poolcontroller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-poolcontroller
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nodejs-poolcontroller
+    spec:
+      containers:
+      - name: controller
+        image: docker.phealy.com/nodejs-poolcontroller:latest
+        imagePullPolicy: Always
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - sh
+                - -c
+                - npm stop
+        ports:
+        - containerPort: 4200
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /app/data
+          name: nodejs-poolcontroller
+          subPath: controller
+        - mountPath: /app/backups
+          name: nodejs-poolcontroller-backups
+      - name: dashpanel
+        image: docker.phealy.com/nodejs-poolcontroller-dashpanel:latest
+        imagePullPolicy: Always
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - sh
+                - -c
+                - npm stop
+        ports:
+        - containerPort: 5150
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /app/data
+          name: nodejs-poolcontroller
+          subPath: dashpanel
+      - name: oauth2-proxy
+        image: quay.io/oauth2-proxy/oauth2-proxy:latest
+        imagePullPolicy: Always
+        command:
+        - /bin/sh
+        - -c
+        - oauth2-proxy --config=/config/config.cfg
+        env:
+        - name: OAUTH2_PROXY_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy
+              key: OAUTH2_PROXY_CLIENT_SECRET
+        - name: OAUTH2_PROXY_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy
+              key: OAUTH2_PROXY_COOKIE_SECRET
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /config
+          name: oauth2-proxy
+      securityContext:
+          fsGroup: 1001
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: nodejs-poolcontroller
+        persistentVolumeClaim:
+          claimName: nodejs-poolcontroller
+      - name: nodejs-poolcontroller-backups
+        persistentVolumeClaim:
+          claimName: nodejs-poolcontroller-backups
+      - name: oauth2-proxy
+        configMap:
+          name: oauth2-proxy

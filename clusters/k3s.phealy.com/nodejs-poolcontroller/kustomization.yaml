@@ -1,0 +1,40 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: nodejs-poolcontroller
+bases:
+    - ../../../apps/nodejs-poolcontroller
+resources:
+  #- resources/secret.yaml
+patches:
+  #    - patch: |-
+  #        apiVersion: v1
+  #        kind: PersistentVolumeClaim
+  #        metadata:
+  #          name: nodejs-poolcontroller-db
+  #          namespace: nodejs-poolcontroller
+  #        spec:
+  #          volumeMode: Filesystem
+  #          volumeName: pvc-817d35a1-3a1c-4145-b6db-38daf3a62172
+  #    - patch: |-
+  #        apiVersion: v1
+  #        kind: PersistentVolumeClaim
+  #        metadata:
+  #          name: nodejs-poolcontroller-fonts
+  #          namespace: nodejs-poolcontroller
+  #        spec:
+  #          volumeMode: Filesystem
+  #          volumeName: pvc-2f770203-bbca-444e-91cd-38168319fa35
+    - patch: |-
+        - op: replace
+          path: /spec/rules/0/host
+          value: pool.k3s.phealy.com
+        - op: replace
+          path: /spec/tls/0/hosts/0
+          value: pool.k3s.phealy.com
+      target:
+          group: networking.k8s.io
+          version: v1
+          kind: Ingress
+          name: nodejs-poolcontroller
+          namespace: nodejs-poolcontroller

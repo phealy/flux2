@@ -6,7 +6,7 @@ bases:
     - ../../../apps/pihole
 resources:
     - resources/pihole-dnsmasq.yaml
-    - resources/pihole-admin.yaml
+#    - resources/pihole-admin.yaml
 patches:
     - patch: |-
         apiVersion: v1

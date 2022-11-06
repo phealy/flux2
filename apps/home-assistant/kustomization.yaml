@@ -6,7 +6,6 @@ resources:
     - namespace.yaml
     - repository.yaml
     - home-assistant.yaml
-    - ingress-internal.yaml
-    - ingress-external.yaml
+    - ingress.yaml
     - pv.yaml
     - pvc.yaml

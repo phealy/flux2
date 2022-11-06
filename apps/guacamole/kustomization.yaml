@@ -11,6 +11,5 @@ resources:
     - service-postgres.yaml
     - service-guacd.yaml
     - service-guacamole.yaml
-    - ingress-internal.yaml
-    - ingress-external.yaml
+    - ingress.yaml
     - configmap-server.yaml

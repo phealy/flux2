@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: unifi
 resources:
     - deployment.yaml
-    - ingress-internal.yaml
+    - ingress.yaml
     - namespace.yaml
     - service.yaml
     - pvc.yaml

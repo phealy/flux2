@@ -2,9 +2,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-    name: ingress-controller-external
+    name: ingress-controller
 spec:
-    releaseName: external
+    releaseName: k3s
     chart:
         spec:
             chart: ingress-nginx
@@ -18,31 +18,25 @@ spec:
             retries: 3
     values:
         controller:
-            admissionWebhooks:
-                objectSelector:
-                    matchExpressions:
-                      - key: ingress-class
-                        operator: In
-                        values:
-                        - nginx-external
-            ingressClassByName: false
-            ingressClassResource:
-                name: nginx-external
-                default: false
-                controllerValue: "k8s.io/ingress-nginx-external"
             config:
                 client-body-buffer-size: 16k
                 large-client-header-buffers: 4 16k
                 proxy-buffer-size: 16k
                 ssl-protocols: "TLSv1.2"
             extraArgs:
-                default-ssl-certificate: ingress-nginx-external/wildcard-certificate
+                default-ssl-certificate: ingress-nginx/wildcard-certificate
+            ingressClassByName: false
+            ingressClassResource:
+                name: nginx
+                default: true
+                controllerValue: "k8s.io/ingress-nginx"
             nodeSelector:
                 kubernetes.io/os: linux
             replicaCount: 3
             service:
                 type: LoadBalancer
                 externalTrafficPolicy: Local
+            watchIngressWithoutClass: true
         defaultBackend:
             enabled: true
             nodeSelector:

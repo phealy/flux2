@@ -43,24 +43,5 @@ patches:
           group: networking.k8s.io
           version: v1
           kind: Ingress
-          name: guacamole-external
-          namespace: guacamole
-    - patch: |-
-        - op: replace
-          path: /spec/rules/0/host
-          value: rdp.int.k3s.phealy.com
-        - op: replace
-          path: /spec/rules/1/host
-          value: ssh.int.k3s.phealy.com
-        - op: replace
-          path: /spec/tls/0/hosts/0
-          value: rdp.int.k3s.phealy.com
-        - op: replace
-          path: /spec/tls/0/hosts/1
-          value: ssh.int.k3s.phealy.com
-      target:
-          group: networking.k8s.io
-          version: v1
-          kind: Ingress
-          name: guacamole-internal
+          name: guacamole
           namespace: guacamole

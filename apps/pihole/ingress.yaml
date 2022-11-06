@@ -5,6 +5,7 @@ metadata:
     name: pihole
     annotations:
         nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8, 100.64.0.0/10
 spec:
     ingressClassName: nginx
     rules:
@@ -28,6 +29,7 @@ metadata:
     name: pihole-0
     annotations:
         nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8, 100.64.0.0/10
 spec:
     ingressClassName: nginx
     rules:
@@ -51,6 +53,7 @@ metadata:
     name: pihole-1
     annotations:
         nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8, 100.64.0.0/10
 spec:
     ingressClassName: nginx
     rules:

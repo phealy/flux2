@@ -26,4 +26,4 @@ patches:
           group: networking.k8s.io
           version: v1
           kind: Ingress
-          name: unifi-internal
+          name: unifi

@@ -6,8 +6,7 @@ resources:
 - resources/nfs-subdir-external-provisioner.yaml
 - resources/cert-manager-crds.yaml
 - resources/cert-manager.yaml
-- resources/ingress-nginx-external.yaml
-- resources/ingress-nginx-internal.yaml
+- resources/ingress-nginx.yaml
 - resources/metallb.yaml
 - resources/storage-classes.yaml
 - resources/home-assistant.yaml

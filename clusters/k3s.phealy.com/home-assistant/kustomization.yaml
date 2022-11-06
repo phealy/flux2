@@ -16,16 +16,4 @@ patchesJson6902:
           group: networking.k8s.io
           version: v1
           kind: Ingress
-          name: home-assistant-external
-    - patch: |-
-        - op: replace
-          path: /spec/rules/0/host
-          value: home-assistant.k3s.phealy.com
-        - op: replace
-          path: /spec/tls/0/hosts/0
-          value: home-assistant.k3s.phealy.com
-      target:
-          group: networking.k8s.io
-          version: v1
-          kind: Ingress
-          name: home-assistant-internal
+          name: home-assistant

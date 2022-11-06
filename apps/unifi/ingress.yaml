@@ -2,22 +2,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-    name: home-assistant-internal
+    name: unifi
     annotations:
-      nginx.org/websocket-services: home-assistant
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8, 100.64.0.0/10
 spec:
     ingressClassName: nginx
     rules:
-        - host: home-assistant
+        - host: unifi
           http:
               paths:
                   - path: /
                     pathType: Prefix
                     backend:
                         service:
-                            name: cluster-home-assistant
+                            name: unifi
                             port:
-                                number: 8123
+                                number: 8443
     tls:
         - hosts:
-              - home-assistant
+              - unifi

@@ -11,6 +11,9 @@ data:
     http_address = ":8080"
     redirect_url = "https://pool.k3s.phealy.com/oauth2/callback"
     reverse_proxy = true
+    skip_provider_button = true
+    #cookie_csrf_per_request = true
+    #cookie_csrf_expire = 5m
     upstreams = [
       "http://127.0.0.1:5150"
     ]

@@ -1,23 +1,22 @@
 apiVersion: v1
 data:
   config.cfg: |
-    provider = "azure"
-    client_id = "5ec9f3f8-aa8f-4489-ad94-2afb947d726b"
-    azure_tenant = "33e641ca-c038-4035-8d37-104888663285"
-    oidc_issuer_url = "https://login.microsoftonline.com/33e641ca-c038-4035-8d37-104888663285/v2.0"
+    provider = "google"
+    client_id = "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"
     email_domains = [
       "phealy.com"
     ]
     http_address = ":8080"
     redirect_url = "https://pool.k3s.phealy.com/oauth2/callback"
     reverse_proxy = true
+    cookie_refresh = "1h"
     skip_provider_button = true
     #cookie_csrf_per_request = true
     #cookie_csrf_expire = 5m
+    #show_debug_on_error = true
     upstreams = [
       "http://127.0.0.1:5150"
     ]
-    show_debug_on_error = true
 kind: ConfigMap
 metadata:
   name: oauth2-proxy

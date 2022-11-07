@@ -55,12 +55,25 @@ spec:
           name: nodejs-poolcontroller
           subPath: dashpanel
       - name: oauth2-proxy
-        image: quay.io/oauth2-proxy/oauth2-proxy:latest
+        image: quay.io/oauth2-proxy/oauth2-proxy:v7.2.1
         imagePullPolicy: Always
-        command:
-        - /bin/sh
-        - -c
-        - oauth2-proxy --config=/config/config.cfg || sleep infinity
+        args:
+        - --reverse-proxy
+        - --skip-provider-button
+        - --provider
+        - github
+        - --client-id
+        - 1b03d1903fc6f6b4f458
+        - --github-user
+        - phealy
+        - --email-domain
+        - "*"
+        - --http-address
+        - :8080
+        - --redirect-url
+        - https://pool.k3s.phealy.com/oauth2/callback
+        - --upstream
+        - http://127.0.0.1:5150
         env:
         - name: OAUTH2_PROXY_CLIENT_SECRET
           valueFrom:
@@ -75,9 +88,6 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
-        volumeMounts:
-        - mountPath: /config
-          name: oauth2-proxy
       securityContext:
           fsGroup: 1001
       terminationGracePeriodSeconds: 0
@@ -88,6 +98,3 @@ spec:
       - name: nodejs-poolcontroller-backups
         persistentVolumeClaim:
           claimName: nodejs-poolcontroller-backups
-      - name: oauth2-proxy
-        configMap:
-          name: oauth2-proxy

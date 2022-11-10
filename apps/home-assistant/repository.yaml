@@ -1,9 +1,14 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
 metadata:
     name: home-assistant
     namespace: home-assistant
 spec:
-    url: https://k8s-at-home.com/charts/
+    url: https://github.com/phealy/k8s-at-home
+    ref:
+      branch: master
+    ignore: |
+      /*
+      !/charts/
     interval: 10m

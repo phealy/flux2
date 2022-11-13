@@ -14,4 +14,3 @@ resources:
 - resources/pihole.yaml
 - resources/unifi.yaml
 - resources/guacamole.yaml
-- resources/nodejs-poolcontroller.yaml
